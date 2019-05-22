@@ -1383,8 +1383,8 @@ run(void)
 
 void
 runAutostart(void) {
-       system("cd ~/.config/dwm; ./autostart_blocking.sh");
-       system("cd ~/.config/dwm; ./autostart.sh &");
+       system("cd ~/.config/dwm; ./autostart_blocking");
+       system("cd ~/.config/dwm; ./autostart &");
 }
 
 void
@@ -2134,6 +2134,7 @@ zoom(const Arg *arg)
 int
 main(int argc, char *argv[])
 {
+	setup();
 	if (argc == 2 && !strcmp("-v", argv[1]))
 		die("dwm-"VERSION);
 	else if (argc != 1)
@@ -2143,13 +2144,12 @@ main(int argc, char *argv[])
 	if (!(dpy = XOpenDisplay(NULL)))
 		die("dwm: cannot open display");
 	checkotherwm();
-	setup();
+        runAutostart();
 #ifdef __OpenBSD__
 	if (pledge("stdio rpath proc exec", NULL) == -1)
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
-        runAutostart();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
