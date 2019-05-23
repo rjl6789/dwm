@@ -1,6 +1,5 @@
 config.def.h.orig
 config.def.h.rej
-config.h
 dwm-xrdb-6.1.diff
 dwm.c.orig
 dwm.c.rej
