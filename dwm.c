@@ -194,6 +194,7 @@ static void resizemouse(const Arg *arg);
 static void restack(Monitor *m);
 static void run(void);
 static void runAutostart(void);
+static void runAutostartBlocking(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
@@ -1383,8 +1384,12 @@ run(void)
 
 void
 runAutostart(void) {
-       system("cd ~/.config/dwm; ./autostart_blocking");
        system("cd ~/.config/dwm; ./autostart &");
+}
+
+void
+runAutostartBlocking(void) {
+       system("cd ~/.config/dwm; ./autostart_blocking");
 }
 
 void
@@ -2134,7 +2139,7 @@ zoom(const Arg *arg)
 int
 main(int argc, char *argv[])
 {
-        runAutostart();
+        runAutostartBlocking();
 	if (argc == 2 && !strcmp("-v", argv[1]))
 		die("dwm-"VERSION);
 	else if (argc != 1)
@@ -2150,6 +2155,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
+        runAutostart();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
