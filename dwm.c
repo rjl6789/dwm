@@ -1049,8 +1049,6 @@ loadxrdb()
     XRDB_LOAD_COLOR("dwm.selbgcolor", selbgcolor);
     XRDB_LOAD_COLOR("dwm.selfgcolor", selfgcolor);
   
-    // colors is an array of pointers to the colours above
-    // should not need to update as variables are loaded into the address 
   }
 }
 
@@ -2164,14 +2162,6 @@ void
 xrdb(const Arg *arg)
 {
   loadxrdb();
-/*
-  scheme[SchemeNorm].border = drw_clr_create(drw, normbordercolor);
-  scheme[SchemeNorm].bg = drw_clr_create(drw, normbgcolor);
-  scheme[SchemeNorm].fg = drw_clr_create(drw, normfgcolor);
-  scheme[SchemeSel].border = drw_clr_create(drw, selbordercolor);
-  scheme[SchemeSel].bg = drw_clr_create(drw, selbgcolor);
-  scheme[SchemeSel].fg = drw_clr_create(drw, selfgcolor);
-*/
   int i;
   for (i = 0; i < LENGTH(colors); i++)
                 scheme[i] = drw_scm_create(drw, colors[i], 3);
