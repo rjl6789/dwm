@@ -5,7 +5,9 @@ dwm is an extremely fast, small, and dynamic window manager for X.
 Patched by Rob
 --------------
 
-xrdb - tag v6.2-xrdb
+xrdb
+vanitygaps
+hide_vacant_tags
 
 Requirements
 ------------
