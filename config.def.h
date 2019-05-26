@@ -17,6 +17,10 @@ static const char *fonts[]          = { //"monospace:size=12",
 					//"Symbola:style=Regular:size=10",
 };
 static const char dmenufont[]       = "monospace:size=12";
+static const char col_black[]       = "#000000";
+static const char col_red[]         = "#ff0000";
+static const char col_yellow[]      = "#ffff00";
+static const char col_white[]       = "#ffffff";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -27,6 +31,8 @@ static char *colors[][3]            = {
 	/*               fg           bg           border   */
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+	[SchemeWarn] =	 { col_black, col_yellow, col_red },
+	[SchemeUrgent]=	 { col_white, col_red,    col_red },
 };
 
 /* Xresources location */
