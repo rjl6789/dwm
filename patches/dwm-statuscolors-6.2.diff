@@ -1,0 +1,177 @@
+diff --git a/config.def.h b/config.def.h
+index 1679316..aced3e3 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -17,16 +17,43 @@ static const char *fonts[]          = { //"monospace:size=12",
+ 					//"Symbola:style=Regular:size=10",
+ };
+ static const char dmenufont[]       = "monospace:size=12";
+-static char normbgcolor[]           = "#222222";
+-static char normbordercolor[]       = "#444444";
+-static char normfgcolor[]           = "#bbbbbb";
+-static char selfgcolor[]            = "#eeeeee";
+-static char selbordercolor[]        = "#005577";
+-static char selbgcolor[]            = "#005577";
++
++static char col_red[]         = "#cc241d";
++static char col_yellow[]      = "#fabd2f";
++static char col_white[]       = "#ebdbb2";
++static char col_black[]       = "#282828";
++
++static char col_1[]           = "#16a085";
++static char col_2[]           = "#b07f1c";
++static char col_3[]           = "#458588";
++static char col_4[]           = "#8ec07c";
++static char col_5[]           = "#d65d0e";
++static char col_6[]           = "#444444";
++static char col_7[]           = "#005577";
++static char col_8[]           = "#bbbbbb";
++static char col_9[]           = "#222222";
++
++static char normbgcolor[]     = "#222222";
++static char normbordercolor[] = "#444444";
++static char normfgcolor[]     = "#bbbbbb";
++static char selfgcolor[]      = "#eeeeee";
++static char selbordercolor[]  = "#005577";
++static char selbgcolor[]      = "#005577";
+ static char *colors[][3]            = {
+-	/*               fg           bg           border   */
+-	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+-	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
++	/*                        fg           bg           border   */
++	[SchemeNorm]	=	{ normfgcolor, normbgcolor, normbordercolor },
++	[SchemeSel]	=	{ selfgcolor,  selbgcolor,  selbordercolor  },
++	[SchemeWarn]	=	{ col_black,   col_yellow,  col_red },
++	[SchemeUrgent]	=	{ col_white,   col_red,     col_red },
++	[SchemeCol1]	=	{ col_black,   col_1,       col_red },
++	[SchemeCol2]	=	{ col_black,   col_2,       col_red },
++	[SchemeCol3]	=	{ col_black,   col_3,       col_red },
++	[SchemeCol4]	=	{ col_black,   col_4,       col_red },
++	[SchemeCol5]	=	{ col_black,   col_5,       col_red },
++	[SchemeCol6]	=	{ col_black,   col_6,       col_red },
++	[SchemeCol7]	=	{ col_black,   col_7,       col_red },
++	[SchemeCol8]	=	{ col_black,   col_8,       col_red },
++	[SchemeCol9]	=	{ col_black,   col_9,       col_red },
+ };
+ 
+ /* Xresources location */
+diff --git a/config.h b/config.h
+index 1679316..aced3e3 100644
+--- a/config.h
++++ b/config.h
+@@ -17,16 +17,43 @@ static const char *fonts[]          = { //"monospace:size=12",
+ 					//"Symbola:style=Regular:size=10",
+ };
+ static const char dmenufont[]       = "monospace:size=12";
+-static char normbgcolor[]           = "#222222";
+-static char normbordercolor[]       = "#444444";
+-static char normfgcolor[]           = "#bbbbbb";
+-static char selfgcolor[]            = "#eeeeee";
+-static char selbordercolor[]        = "#005577";
+-static char selbgcolor[]            = "#005577";
++
++static char col_red[]         = "#cc241d";
++static char col_yellow[]      = "#fabd2f";
++static char col_white[]       = "#ebdbb2";
++static char col_black[]       = "#282828";
++
++static char col_1[]           = "#16a085";
++static char col_2[]           = "#b07f1c";
++static char col_3[]           = "#458588";
++static char col_4[]           = "#8ec07c";
++static char col_5[]           = "#d65d0e";
++static char col_6[]           = "#444444";
++static char col_7[]           = "#005577";
++static char col_8[]           = "#bbbbbb";
++static char col_9[]           = "#222222";
++
++static char normbgcolor[]     = "#222222";
++static char normbordercolor[] = "#444444";
++static char normfgcolor[]     = "#bbbbbb";
++static char selfgcolor[]      = "#eeeeee";
++static char selbordercolor[]  = "#005577";
++static char selbgcolor[]      = "#005577";
+ static char *colors[][3]            = {
+-	/*               fg           bg           border   */
+-	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+-	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
++	/*                        fg           bg           border   */
++	[SchemeNorm]	=	{ normfgcolor, normbgcolor, normbordercolor },
++	[SchemeSel]	=	{ selfgcolor,  selbgcolor,  selbordercolor  },
++	[SchemeWarn]	=	{ col_black,   col_yellow,  col_red },
++	[SchemeUrgent]	=	{ col_white,   col_red,     col_red },
++	[SchemeCol1]	=	{ col_black,   col_1,       col_red },
++	[SchemeCol2]	=	{ col_black,   col_2,       col_red },
++	[SchemeCol3]	=	{ col_black,   col_3,       col_red },
++	[SchemeCol4]	=	{ col_black,   col_4,       col_red },
++	[SchemeCol5]	=	{ col_black,   col_5,       col_red },
++	[SchemeCol6]	=	{ col_black,   col_6,       col_red },
++	[SchemeCol7]	=	{ col_black,   col_7,       col_red },
++	[SchemeCol8]	=	{ col_black,   col_8,       col_red },
++	[SchemeCol9]	=	{ col_black,   col_9,       col_red },
+ };
+ 
+ /* Xresources location */
+diff --git a/dwm.c b/dwm.c
+index ba926e6..2fc3dd3 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -75,7 +75,9 @@
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeWarn, SchemeUrgent,
++       SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4, SchemeCol5,
++       SchemeCol6, SchemeCol7, SchemeCol8, SchemeCol9 }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -739,13 +741,44 @@ drawbar(Monitor *m)
+ 	int boxs = drw->fonts->h / 9;
+ 	int boxw = drw->fonts->h / 6 + 2;
+ 	unsigned int i, occ = 0, urg = 0;
++	
++	char *ts = stext;
++	char *tp = stext;
++    
++	int tx = 0;
++	char ctmp;
+ 	Client *c;
+-
++	/* correction for colours */
++ 	int correct = 0; 
++	char *xcape = malloc (sizeof (char) * 128);
++	memset(xcape,0,sizeof (char) * 128);
++	for ( ; *ts != '\0' ; ts++) {    
++		if (*ts <= LENGTH(colors)) {
++			sprintf(xcape,"%c",*ts);
++			correct += TEXTW(xcape) - lrpad;
++		}
++	}
++	free(xcape);
++	ts = stext;
++  
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+-		sw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+-		drw_text(drw, m->ww - sw, 0, sw, bh, 0, stext, 0);
++		sw = TEXTW(stext) - lrpad + 2 - correct; /* 2px right padding and correction for escape sequences*/
++		while (1) {
++			if ( (unsigned int) *ts > LENGTH(colors) ) { 
++				ts++;
++				continue; 
++			}
++			ctmp = *ts;
++			*ts = '\0';
++			drw_text(drw, m->ww - sw + tx, 0, sw - tx, bh, 0, tp, 0);
++			tx += TEXTW(tp) - lrpad;
++			if (ctmp == '\0') { break; }
++			drw_setscheme(drw, scheme[(unsigned int)(ctmp-1)]);
++			*ts = ctmp;
++			tp = ++ts;
++		}
+ 	}
+ 
+ 	for (c = m->clients; c; c = c->next) {
