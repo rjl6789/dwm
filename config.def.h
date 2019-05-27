@@ -17,22 +17,43 @@ static const char *fonts[]          = { //"monospace:size=12",
 					//"Symbola:style=Regular:size=10",
 };
 static const char dmenufont[]       = "monospace:size=12";
-static const char col_black[]       = "#000000";
-static const char col_red[]         = "#ff0000";
-static const char col_yellow[]      = "#ffff00";
-static const char col_white[]       = "#ffffff";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
+
+static char col_red[]         = "#cc241d";
+static char col_yellow[]      = "#fabd2f";
+static char col_white[]       = "#ebdbb2";
+static char col_black[]       = "#282828";
+
+static char col_1[]           = "#16a085";
+static char col_2[]           = "#b07f1c";
+static char col_3[]           = "#458588";
+static char col_4[]           = "#8ec07c";
+static char col_5[]           = "#d65d0e";
+static char col_6[]           = "#444444";
+static char col_7[]           = "#005577";
+static char col_8[]           = "#bbbbbb";
+static char col_9[]           = "#222222";
+
+static char normbgcolor[]     = "#222222";
+static char normbordercolor[] = "#444444";
+static char normfgcolor[]     = "#bbbbbb";
+static char selfgcolor[]      = "#eeeeee";
+static char selbordercolor[]  = "#005577";
+static char selbgcolor[]      = "#005577";
 static char *colors[][3]            = {
-	/*               fg           bg           border   */
-	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-	[SchemeWarn] =	 { col_black, col_yellow, col_red },
-	[SchemeUrgent]=	 { col_white, col_red,    col_red },
+	/*                        fg           bg           border   */
+	[SchemeNorm]	=	{ normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel]	=	{ selfgcolor,  selbgcolor,  selbordercolor  },
+	[SchemeWarn]	=	{ col_black,   col_yellow,  col_red },
+	[SchemeUrgent]	=	{ col_white,   col_red,     col_red },
+	[SchemeCol1]	=	{ col_black,   col_1,       col_red },
+	[SchemeCol2]	=	{ col_black,   col_2,       col_red },
+	[SchemeCol3]	=	{ col_black,   col_3,       col_red },
+	[SchemeCol4]	=	{ col_black,   col_4,       col_red },
+	[SchemeCol5]	=	{ col_black,   col_5,       col_red },
+	[SchemeCol6]	=	{ col_black,   col_6,       col_red },
+	[SchemeCol7]	=	{ col_black,   col_7,       col_red },
+	[SchemeCol8]	=	{ col_black,   col_8,       col_red },
+	[SchemeCol9]	=	{ col_black,   col_9,       col_red },
 };
 
 /* Xresources location */
