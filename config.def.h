@@ -1,22 +1,73 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+static const unsigned int barsize   = 8;       /* size of the dwm bar */
+static const char *fonts[]          = { //"monospace:size=12",
+					"UbuntuMono Nerd Font:size=12",
+					"icomoon:size=11",
+					//"Symbola:style=Regular:size=10",
 };
+static const char dmenufont[]       = "monospace:size=12";
+
+static char col_red[]         = "#cc241d";
+static char col_yellow[]      = "#fabd2f";
+static char col_white[]       = "#fbf1c7";
+static char col_black[]       = "#1d2021";
+
+// Gruvbox colors
+static char color0[] = "#282828";
+static char color1[] = "#cc241d";
+static char color2[] = "#98971a";
+static char color3[] = "#d79921";
+static char color4[] = "#458588";
+static char color5[] = "#b16286";
+static char color6[] = "#689d6a";
+static char color7[] = "#a89984";
+static char color8[] = "#928374";
+static char color9[] = "#fb4934";
+static char color10[] = "#b8bb26";
+static char color11[] = "#fabd2f";
+static char color12[] = "#83a598";
+static char color13[] = "#d3869b";
+static char color14[] = "#8ec07c";
+static char color15[] = "#ebdbb2";
+
+static char normbgcolor[]     = "#222222";
+static char normbordercolor[] = "#444444";
+static char normfgcolor[]     = "#bbbbbb";
+static char selfgcolor[]      = "#eeeeee";
+static char selbordercolor[]  = "#005577";
+static char selbgcolor[]      = "#005577";
+static char *colors[][3]            = {		/* when referencing for status colors use \x01..9..A..F etc i.e. Hex */
+	/*                        fg           bg           border   */
+	[SchemeNorm]	=	{ normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel]	=	{ selfgcolor,  selbgcolor,  selbordercolor  },
+	[SchemeWarn]	=	{ col_black,   col_yellow,  col_red },
+	[SchemeUrgent]	=	{ col_white,   col_red,     col_red },
+	[SchemeCol0]	=	{ col_black,   color0,      col_red },
+	[SchemeCol1]	=	{ col_black,   color1,      col_red },
+	[SchemeCol2]	=	{ col_black,   color2,      col_red },
+	[SchemeCol3]	=	{ col_black,   color3,      col_red },
+	[SchemeCol4]	=	{ col_black,   color4,      col_red },
+	[SchemeCol5]	=	{ col_black,   color5,      col_red },
+	[SchemeCol6]	=	{ col_black,   color6,      col_red },
+	[SchemeCol7]	=	{ col_black,   color7,      col_red },
+	[SchemeCol8]	=	{ col_black,   color8,      col_red },
+	[SchemeCol9]	=	{ col_black,   color9,      col_red },
+	[SchemeCol10]	=	{ col_black,   color10,     col_red },
+	[SchemeCol11]	=	{ col_black,   color11,     col_red },
+	[SchemeCol12]	=	{ col_black,   color12,     col_red },
+	[SchemeCol13]	=	{ col_black,   color13,     col_red },
+	[SchemeCol14]	=	{ col_black,   color14,     col_red },
+	[SchemeCol15]	=	{ col_black,   color15,     col_red },
+};
+
+/* Xresources location */
+static const char *xres = "/home/rob/.Xresources";
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -26,15 +77,17 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class           instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",          NULL,       NULL,       0,            0,           -1 },
+	//{ "Firefox",       NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Chromium",      NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Google-chrome", NULL,       NULL,       1 << 7,       0,           -1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.53; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -44,7 +97,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -56,7 +109,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
@@ -68,8 +121,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.02} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.02} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
@@ -84,6 +137,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
