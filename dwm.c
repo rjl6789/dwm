@@ -741,17 +741,16 @@ drawbar(Monitor *m)
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
-	
 	char *ts = stext;
 	char *tp = stext;
-    
 	int tx = 0;
 	char ctmp;
-	Client *c;
-	/* correction for colours */
  	int correct = 0; 
 	char *xcape = malloc (sizeof (char) * 128);
 	memset(xcape,0,sizeof (char) * 128);
+	Client *c;
+
+	/* correction for colours */
 	for ( ; *ts != '\0' ; ts++) {    
 		if (*ts <= LENGTH(colors)) {
 			sprintf(xcape,"%c",*ts);
