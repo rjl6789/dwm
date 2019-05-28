@@ -31,7 +31,7 @@ static char col_5[]           = "#d65d0e";
 static char col_6[]           = "#444444";
 static char col_7[]           = "#005577";
 static char col_8[]           = "#bbbbbb";
-static char col_9[]           = "#222222";
+static char col_9[]           = "#b16286";
 
 static char normbgcolor[]     = "#222222";
 static char normbordercolor[] = "#444444";
