@@ -747,8 +747,7 @@ drawbar(Monitor *m)
 	int tx = 0;
 	char ctmp;
  	int correct = 0; 
-	char *xcape = malloc (sizeof (char) * 128);
-	memset(xcape,0,sizeof (char) * 128);
+	char *xcape = ecalloc (128,sizeof (char));
 	Client *c;
 
 	/* correction for colours */
