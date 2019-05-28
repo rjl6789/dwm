@@ -76,8 +76,9 @@
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
 enum { SchemeNorm, SchemeSel, SchemeWarn, SchemeUrgent,
-       SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4, SchemeCol5,
-       SchemeCol6, SchemeCol7, SchemeCol8, SchemeCol9 }; /* color schemes */
+       SchemeCol0, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
+       SchemeCol5, SchemeCol6, SchemeCol7, SchemeCol8, SchemeCol9,
+       SchemeCol10, SchemeCol11, SchemeCol12, SchemeCol13, SchemeCol14, SchemeCol15 }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
