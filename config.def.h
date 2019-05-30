@@ -2,11 +2,11 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const unsigned int barsize   = 8;       /* size of the dwm bar */
+static const unsigned int barsize   = 2;       /* size of the dwm bar */
 static const char *fonts[]          = { //"monospace:size=12",
 					"UbuntuMono Nerd Font:size=12",
 					"icomoon:size=11",
@@ -57,14 +57,14 @@ static char *colors[][3]            = {		/* when referencing for status colors u
 	[SchemeCol5]	=	{ col_black,   color5,      col_red },
 	[SchemeCol6]	=	{ col_black,   color6,      col_red },
 	[SchemeCol7]	=	{ col_black,   color7,      col_red },
-	[SchemeCol8]	=	{ col_black,   color8,      col_red },
+	[SchemeCol8]	=	{ color12,     color4,      col_red },
 	[SchemeCol9]	=	{ col_black,   color9,      col_red },
 	[SchemeCol10]	=	{ col_black,   color10,     col_red },
-	[SchemeCol11]	=	{ col_black,   color11,     col_red },
-	[SchemeCol12]	=	{ col_black,   color12,     col_red },
-	[SchemeCol13]	=	{ col_black,   color13,     col_red },
-	[SchemeCol14]	=	{ col_black,   color14,     col_red },
-	[SchemeCol15]	=	{ col_black,   color15,     col_red },
+	[SchemeCol11]	=	{ color7,      color5,      col_red },
+	[SchemeCol12]	=	{ color5,      color4,      col_red },
+	[SchemeCol13]	=	{ color4,      color3,      col_red },
+	[SchemeCol14]	=	{ color3,      color2,      col_red },
+	[SchemeCol15]	=	{ color2,      selbgcolor,  col_red },
 };
 
 /* Xresources location */
@@ -134,8 +134,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	//{ MODKEY,			XK_space,  setlayout,      {0} },
+	{ MODKEY,			XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
