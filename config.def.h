@@ -64,7 +64,7 @@ static char *colors[][3]            = {		/* when referencing for status colors u
 	[SchemeCol12]	=	{ color5,      color4,      col_red },
 	[SchemeCol13]	=	{ color4,      color3,      col_red },
 	[SchemeCol14]	=	{ color3,      color2,      col_red },
-	[SchemeCol15]	=	{ color2,      selbgcolor,  col_red },
+	[SchemeCol15]	=	{ color2,      normbgcolor, col_red },
 };
 
 /* Xresources location */
