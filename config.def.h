@@ -6,7 +6,7 @@ static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const unsigned int barsize   = 2;       /* size of the dwm bar */
+static const unsigned int barsize   = 8;       /* size of the dwm bar */
 static const char *fonts[]          = { //"monospace:size=12",
 					"UbuntuMono Nerd Font:size=12",
 					"icomoon:size=11",
@@ -14,28 +14,23 @@ static const char *fonts[]          = { //"monospace:size=12",
 };
 static const char dmenufont[]       = "monospace:size=12";
 
-static char col_red[]         = "#cc241d";
-static char col_yellow[]      = "#fabd2f";
-static char col_white[]       = "#fbf1c7";
-static char col_black[]       = "#1d2021";
-
-// Gruvbox colors
-static char color0[] = "#282828";
-static char color1[] = "#cc241d";
-static char color2[] = "#98971a";
-static char color3[] = "#d79921";
-static char color4[] = "#458588";
-static char color5[] = "#b16286";
-static char color6[] = "#689d6a";
-static char color7[] = "#a89984";
-static char color8[] = "#928374";
-static char color9[] = "#fb4934";
-static char color10[] = "#b8bb26";
-static char color11[] = "#fabd2f";
-static char color12[] = "#83a598";
-static char color13[] = "#d3869b";
-static char color14[] = "#8ec07c";
-static char color15[] = "#ebdbb2";
+static char gray1[] = "#393939";
+static char gray2[] = "#4A4A4C";
+static char gray3[] = "#C7C8C9";
+static char gray4[] = "#F3F3F4";
+//static char cyan[] = "#ea7d24";
+//static char lightcyan[] = "#f79321";
+static char magenta[] = "#652f90";
+static char lightmagenta[] = "#894e9f";
+static char blue[] = "#1ca1db";
+static char lightblue[] = "#00afda";
+static char red[] = "#bf1e2d";
+static char lightred[] = "#e7515a";
+static char green[] = "#9dba3a";
+static char lightgreen[] = "#a9c938";
+static char manjaroblue[] = "#01B7CF";
+static char manjarogreen[] = "#16A085";
+static char darkblue[] = "#458588";
 
 static char normbgcolor[]     = "#222222";
 static char normbordercolor[] = "#444444";
@@ -47,24 +42,19 @@ static char *colors[][3]            = {		/* when referencing for status colors u
 	/*                        fg           bg           border   */
 	[SchemeNorm]	=	{ normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]	=	{ selfgcolor,  selbgcolor,  selbordercolor  },
-	[SchemeWarn]	=	{ col_black,   col_yellow,  col_red },
-	[SchemeUrgent]	=	{ col_white,   col_red,     col_red },
-	[SchemeCol0]	=	{ col_black,   color0,      col_red },
-	[SchemeCol1]	=	{ col_black,   color1,      col_red },
-	[SchemeCol2]	=	{ col_black,   color2,      col_red },
-	[SchemeCol3]	=	{ col_black,   color3,      col_red },
-	[SchemeCol4]	=	{ col_black,   color4,      col_red },
-	[SchemeCol5]	=	{ col_black,   color5,      col_red },
-	[SchemeCol6]	=	{ col_black,   color6,      col_red },
-	[SchemeCol7]	=	{ col_black,   color7,      col_red },
-	[SchemeCol8]	=	{ color12,     color4,      col_red },
-	[SchemeCol9]	=	{ col_black,   color9,      col_red },
-	[SchemeCol10]	=	{ col_black,   color10,     col_red },
-	[SchemeCol11]	=	{ color7,      color5,      col_red },
-	[SchemeCol12]	=	{ color5,      color4,      col_red },
-	[SchemeCol13]	=	{ color4,      color3,      col_red },
-	[SchemeCol14]	=	{ color3,      color2,      col_red },
-	[SchemeCol15]	=	{ color2,      normbgcolor, col_red },
+	[SchemeTitle]	=	{ gray3,   gray2,  blue },
+	[SchemeTitleSel]=	{ red,   gray3,     blue },
+};
+static char *statuscolors[][3] = {
+        { gray3, gray2, gray2 }, /* dark */ /* \x01 */
+        { normbgcolor, gray3, gray4 }, /* light */ /* \x02 */
+        { normbgcolor, lightblue, blue }, /* \x03 */
+        { normbgcolor, lightred, red }, /* \x04 */
+        { normbgcolor, lightgreen, green }, /* \x05 */
+        { normbgcolor, lightmagenta, magenta }, /* \x06 */
+        { normbgcolor, manjaroblue, manjaroblue }, /* \x07 */
+        { normbgcolor, manjarogreen, manjarogreen }, /* \x08 */
+        { darkblue, manjaroblue, manjarogreen }, /* \x09 */
 };
 
 /* Xresources location */
