@@ -14,7 +14,7 @@ static const char *fonts[]          = { //"monospace:size=12",
 };
 static const char dmenufont[]       = "monospace:size=12";
 
-static char gray1[] = "#393939";
+//static char gray1[] = "#393939";
 static char gray2[] = "#4A4A4C";
 static char gray3[] = "#C7C8C9";
 static char gray4[] = "#F3F3F4";
@@ -23,7 +23,7 @@ static char gray4[] = "#F3F3F4";
 static char magenta[] = "#652f90";
 static char lightmagenta[] = "#894e9f";
 static char blue[] = "#1ca1db";
-static char lightblue[] = "#00afda";
+static char lightblue[] = "#008fb3";
 static char red[] = "#bf1e2d";
 static char lightred[] = "#e7515a";
 static char green[] = "#9dba3a";
@@ -76,7 +76,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.53; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
