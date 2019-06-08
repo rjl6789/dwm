@@ -798,15 +798,16 @@ int
 drawstatus(Monitor* m)
 {
 	char status[256];
-	int i, n = strlen(stext), cn = 0;
+	int i, n = strlen(stext), cn = 0, blocks=0;
 	int x = m->ww, w = 0;
 	char *bs, bp = '|';
 	Clr *prevscheme = statusscheme[0], *nxtscheme;
 
 	strcpy(status, stext);
 
-	for (i = n, bs = &status[n-1]; i >= 0; i--, bs--) {
-	    if (*bs == '<' || *bs == '/' || *bs == '\\' || *bs == '|') { /* block start */
+ 	for (i = n, bs = &status[n-1]; i >= 0; i--, bs--) {
+	    if (*bs == '<' || *bs == '/' || *bs == '\\' || *bs == '|') { 
+		++blocks;
 		cn = ((int) *(bs+1)) - 1;
 
 		if (cn < LENGTH(statuscolors)) {
@@ -835,6 +836,13 @@ drawstatus(Monitor* m)
 	    drw_arrow(drw, x - plw, 0, plw, bh, bp == '\\' ? 1 : 0, bp == '<' ? 0 : 1);
 	    drw_rect(drw, x - 2 * plw, 0, plw, bh, 1, 1);
 	    x -= plw * 2;
+	}
+
+	if ( blocks == 0 ) {
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		w = TEXTW(stext);
+		drw_text(drw, m->ww - w, 0, w, bh, lrpad / 2, stext, 0);
+		x -= w;
 	}
 
 	return m->ww - x;

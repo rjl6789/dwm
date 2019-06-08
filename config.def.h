@@ -48,11 +48,11 @@ static char *colors[][3]            = {		/* when referencing for status colors u
 static char *statuscolors[][3] = {
         { gray3, gray2, gray2 }, /* dark */ /* \x01 */
         { normbgcolor, gray3, gray4 }, /* light */ /* \x02 */
-        { normbgcolor, lightblue, blue }, /* \x03 */
+        { normbgcolor, manjaroblue, blue }, /* \x03 */
         { normbgcolor, lightred, red }, /* \x04 */
         { normbgcolor, lightgreen, green }, /* \x05 */
         { normbgcolor, lightmagenta, magenta }, /* \x06 */
-        { normbgcolor, manjaroblue, manjaroblue }, /* \x07 */
+        { normbgcolor, lightblue, manjaroblue }, /* \x07 */
         { normbgcolor, manjarogreen, manjarogreen }, /* \x08 */
         { darkblue, manjaroblue, manjarogreen }, /* \x09 */
 };
