@@ -267,7 +267,7 @@ drw_arrow(Drw *drw, int x, int y, unsigned int w, unsigned int h, int direction,
 	x = direction ? x : x + w ;
 	w = direction ? w : -w ;
 	/* slash=1 draws slash instead of arrow */
-	unsigned int hh = slash ? (direction ? 0 : h) : h/2;
+	unsigned int hh = slash ? h : h/2;
 
 	XPoint points[] = {
 		{x    , y      },
@@ -283,7 +283,6 @@ drw_arrow(Drw *drw, int x, int y, unsigned int w, unsigned int h, int direction,
 	};
 
 	XSetForeground(drw->dpy, drw->gc, drw->scheme[ColBg].pixel);
-	//XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
 	XFillPolygon(drw->dpy, drw->drawable, drw->gc, bg, 4, Convex, CoordModeOrigin);
 	XSetForeground(drw->dpy, drw->gc, drw->scheme[ColFg].pixel);
 	XFillPolygon(drw->dpy, drw->drawable, drw->gc, points, 3, Nonconvex, CoordModeOrigin);

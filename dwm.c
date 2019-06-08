@@ -753,8 +753,10 @@ drawbar(Monitor *m)
 		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
 		continue;
 		w = TEXTW(tags[i]);
-		drw_settrans(drw, prevscheme, (nxtscheme = scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]));
-		drw_arrow(drw, x, 0, plw, bh, 1, 0);
+		//drw_settrans(drw, prevscheme, (nxtscheme = scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]));
+		//drw_arrow(drw, x, 0, plw, bh, 1, 0);
+		drw_settrans(drw, (nxtscheme = scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]), prevscheme);
+		drw_arrow(drw, x, 0, plw, bh, 0, 1);
 		x += plw;
 
 		drw_setscheme(drw, nxtscheme);
@@ -765,8 +767,10 @@ drawbar(Monitor *m)
 	}
 	nxtscheme = scheme[SchemeNorm];
 
-	drw_settrans(drw, prevscheme, nxtscheme);
-	drw_arrow(drw, x, 0, plw, bh, 1, 0);
+	//drw_settrans(drw, prevscheme, nxtscheme);
+	//drw_arrow(drw, x, 0, plw, bh, 1, 0);
+	drw_settrans(drw, nxtscheme, prevscheme);
+	drw_arrow(drw, x, 0, plw, bh, 0, 1);
 	x += plw;
 
 	w = blw = TEXTW(m->ltsymbol);
@@ -782,7 +786,8 @@ drawbar(Monitor *m)
 
 			drw_settrans(drw, c == m->sel ? scheme[SchemeTitleSel] : scheme[SchemeTitle], scheme[SchemeNorm]);
 			drw_arrow(drw, x, 0, plw, bh, 0, 1);
-			drw_arrow(drw, x + wt + plw, 0, plw, bh, 1, 1);
+			drw_settrans(drw, scheme[SchemeNorm], c == m->sel ? scheme[SchemeTitleSel] : scheme[SchemeTitle]);
+			drw_arrow(drw, x + wt + plw, 0, plw, bh, 0, 1);
 
 			x += wt + 2 * plw;
 		}
@@ -811,7 +816,8 @@ drawstatus(Monitor* m)
 		cn = ((int) *(bs+1)) - 1;
 
 		if (cn < LENGTH(statuscolors)) {
-		    drw_settrans(drw, prevscheme, (nxtscheme = statusscheme[cn]));
+			bp == '\\' ? drw_settrans(drw, (nxtscheme = statusscheme[cn]), prevscheme)
+				: drw_settrans(drw, prevscheme, (nxtscheme = statusscheme[cn]) );
 		} else {
 		    drw_settrans(drw, prevscheme, (nxtscheme = statusscheme[0]));
 		}
@@ -832,10 +838,12 @@ drawstatus(Monitor* m)
 	    }
 	}
 	if (bp != '|') {
-	    drw_settrans(drw, prevscheme, scheme[SchemeNorm]);
-	    drw_arrow(drw, x - plw, 0, plw, bh, bp == '\\' ? 1 : 0, bp == '<' ? 0 : 1);
-	    drw_rect(drw, x - 2 * plw, 0, plw, bh, 1, 1);
-	    x -= plw * 2;
+		bp == '\\' ? drw_settrans(drw, scheme[SchemeNorm], prevscheme)
+			: drw_settrans(drw, prevscheme, scheme[SchemeNorm]);
+		drw_arrow(drw, x - plw, 0, plw, bh, bp == '\\' ? 1 : 0, bp == '<' ? 0 : 1);
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_rect(drw, x - 2 * plw, 0, plw, bh, 1, 1);
+		x -= plw * 2;
 	}
 
 	if ( blocks == 0 ) {
