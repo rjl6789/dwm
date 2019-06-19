@@ -12,7 +12,7 @@ static const char *fonts[]          = { //"monospace:size=12",
 					"icomoon:size=11",
 					//"Symbola:style=Regular:size=10",
 };
-static const char dmenufont[]       = "monospace:size=12";
+static const char dmenufont[]       = "UbuntuMono Nerd Font:size=14";
 
 //static char gray1[] = "#393939";
 static char gray2[] = "#4A4A4C";
