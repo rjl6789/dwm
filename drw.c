@@ -15,7 +15,6 @@ static const unsigned char utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0}
 static const unsigned char utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
 static const long utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
 static const long utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
-Clr transcheme[3];
 
 static long
 utf8decodebyte(const char c, size_t *i)
@@ -208,7 +207,7 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
 /* Wrapper to create color schemes. The caller has to call free(3) on the
  * returned color scheme when done using it. */
 Clr *
-drw_scm_create(Drw *drw, char *clrnames[], size_t clrcount)
+drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
 {
 	size_t i;
 	Clr *ret;
@@ -237,15 +236,6 @@ drw_setscheme(Drw *drw, Clr *scm)
 }
 
 void
-drw_settrans(Drw *drw, Clr *psc, Clr *nsc)
-{
-        if (drw) {
-            transcheme[0] = psc[ColBg]; transcheme[1] = nsc[ColBg]; transcheme[2] = psc[ColBorder];
-            drw->scheme = transcheme;
-        }
-}
-
-void
 drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int invert)
 {
 	if (!drw || !drw->scheme)
@@ -255,37 +245,6 @@ drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int
 		XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
 	else
 		XDrawRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w - 1, h - 1);
-}
-
-void
-drw_arrow(Drw *drw, int x, int y, unsigned int w, unsigned int h, int direction, int slash)
-{
-	if (!drw)
-		return;
-
-	/* direction=1 draws right arrow */
-	x = direction ? x : x + w ;
-	w = direction ? w : -w ;
-	/* slash=1 draws slash instead of arrow */
-	unsigned int hh = slash ? h : h/2;
-
-	XPoint points[] = {
-		{x    , y      },
-		{x + w, y + hh },
-		{x    , y + h  },
-	};
-
-	XPoint bg[] = {
-	    {x    , y    },
-	    {x + w, y    },
-	    {x + w, y + h},
-	    {x    , y + h},
-	};
-
-	XSetForeground(drw->dpy, drw->gc, drw->scheme[ColBg].pixel);
-	XFillPolygon(drw->dpy, drw->drawable, drw->gc, bg, 4, Convex, CoordModeOrigin);
-	XSetForeground(drw->dpy, drw->gc, drw->scheme[ColFg].pixel);
-	XFillPolygon(drw->dpy, drw->drawable, drw->gc, points, 3, Nonconvex, CoordModeOrigin);
 }
 
 int
