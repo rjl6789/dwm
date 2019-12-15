@@ -17,7 +17,10 @@ ${endif}\
  \
 ${if_up enp0s31f6} ${downspeedf enp0s31f6}/${upspeedf enp0s31f6} kb/s\
 ${else}\
+${if_up enp57s0u1u3} ${downspeedf enp0s31f6}/${upspeedf enp0s31f6} kb/s\
+${else}\
 \
+${endif}\
 ${endif}\
  | \
  ${cpu}% | \

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+
+if [[ -z $DISPLAY ]]; then
+	exit
+elif hash xprop >/dev/null 2>&1; then
+	ID="$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)"
+	WM="$(xprop -id "${ID##* }" -notype -len 100 -f _NET_WM_NAME 8t)"
+	WM="${WM/*WM_NAME = }"
+	WM="${WM/\"}"
+	WM="${WM/\"*}"
+	WM="${WM,,}"
+fi
+
+case "$WM" in
+	i3)
+		i3-msg "exit"
+		;;
+	openbox)
+		openbox --exit
+		;;
+	xfwm4)
+		xfce4-session-logout --logout
+		lxqt-leave --logout
+		;;
+	bspwm)
+		for i in $(bspc query -N); do
+			bspc node "$i" -c
+		done
+		pkill sxhkd
+		bspc quit
+		;;
+        dwm)
+                xdotool key super+shift+q &
+                ;;
+        spectrwm)
+                xdotool key super+shift+q &
+                ;;
+	*)
+		if pidof xinit >/dev/null 2>&1; then
+			pkill xinit
+		else
+			pkill -15 -t tty"${XDG_VTNR:-1}" Xorg
+		fi
+		;;
+esac
+
