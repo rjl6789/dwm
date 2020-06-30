@@ -7,7 +7,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Ubuntu Mono:size=12",
-                                        "Font Awesome 5 Free Solid:size=10"};
+	"JoyPixels:pixelsize=10:antialias=true:autohint=true",
+	"Font Awesome 5 Free Solid:size=10"};
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#141c21";
 static const char col_gray2[]       = "#444444";
@@ -52,7 +53,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -136,7 +137,13 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
+	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
+	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
+	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
+	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD("st -e nvim ~/src/dwmblocks-lukesmith/config.h") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
